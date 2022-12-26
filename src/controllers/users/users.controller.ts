@@ -1,9 +1,10 @@
-import {Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
 import {UsersService} from "../../services/users/users.service";
 import {User} from "../../shemas/user";
 import {UserDto} from "../../dto/user-dto";
 import {query} from "express";
 import {Promise} from "mongoose";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('users')
 export class UsersController {
@@ -36,32 +37,15 @@ export class UsersController {
 								detailText: 'Попробуйте другой логин'
 							},
 							HttpStatus.CONFLICT)
-						// return Promise.reject();
 					}
 				}
 			)
 	}
 
+	@UseGuards(AuthGuard('local'))
 	@Post(':login')
-	authUser(@Body() data: UserDto, @Param('login') login): Promise<User | boolean> {
-		return this.userService.checkUserAuth(data.login, data.psw)
-			.then(
-				(qr) => {
-					if (qr.length != 0) {
-						console.log('data', data)
-						return Promise.resolve(true)
-					} else {
-						console.log('err - user exists');
-						throw new HttpException(
-							{
-								status: HttpStatus.CONFLICT,
-								errorText: 'Пользователь не найден',
-								detailText: 'Проверьте логин и пароль'
-							},
-							HttpStatus.CONFLICT)
-					}
-				}
-			)
+	authUser(@Body() data: UserDto, @Param('login') login): any {
+		return this.userService.login(data)
 	}
 
 	@Delete()
