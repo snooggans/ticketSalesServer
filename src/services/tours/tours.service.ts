@@ -23,6 +23,14 @@ export class ToursService {
 		return this.tourModel.findById(id)
 	}
 
+	async getTourByName(name): Promise<ITour[]>{
+		return this.tourModel.find({name: { "$regex": name, "$options": "i" }})
+	}
+
+	async getNearestTours(): Promise<ITour[]>{
+		return this.tourModel.find()
+	}
+
 	async generateTours(): Promise<any> {
 		for (let i = 0; i <= this.toursCount; i++){
 			const tour = new TourDto(
