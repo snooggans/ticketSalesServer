@@ -23,6 +23,9 @@ export class Tour implements ITour{
 	price: string;
 
 	@Prop()
+	location: string;
+
+	@Prop()
 	img: string;
 
 	@Prop()

@@ -9,13 +9,13 @@ export class NearestToursController {
 	constructor(private toursService: ToursService) {
 	}
 
-	@Get(':name')
-	getTourById(@Param('name') name): Promise<ITour[]>{
-		return this.toursService.getTourByName(name);
+	@Get(':loc')
+	getNearestTours(@Param('loc') loc): Promise<ITour[]>{
+		return this.toursService.getNearestTours(loc);
 	}
 
-	@Get()
-	getNearestTours(): Promise<ITour[]>{
-		return this.toursService.getNearestTours();
-	}
+	// @Get()
+	// getNearestTours(): Promise<ITour[]>{
+	// 	return this.toursService.getNearestTours();
+	// }
 }

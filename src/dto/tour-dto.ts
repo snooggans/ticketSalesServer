@@ -9,12 +9,14 @@ export class TourDto implements ITour{
 	img: string;
 	type: string;
 	date: string;
+	location: string;
 
-	constructor(name, description, tourOperator, price, img) {
+	constructor(name, description, tourOperator, price, location, img) {
 		this.name = name;
 		this.description = description;
 		this.tourOperator = tourOperator;
 		this.price = price;
+		this.location = location;
 		this.img = img
 	}
 }

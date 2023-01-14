@@ -27,8 +27,8 @@ export class ToursService {
 		return this.tourModel.find({name: { "$regex": name, "$options": "i" }})
 	}
 
-	async getNearestTours(): Promise<ITour[]>{
-		return this.tourModel.find()
+	async getNearestTours(loc:string): Promise<ITour[]>{
+		return this.tourModel.find({location: loc})
 	}
 
 	async generateTours(): Promise<any> {
@@ -38,6 +38,7 @@ export class ToursService {
 				`Tour desc ${i}`,
 				`Tour operator ${i}`,
 				`Tour price ${i}`,
+				`Tour location ${i}`,
 				``
 			);
 			const tourData = new this.tourModel(tour)
@@ -50,7 +51,7 @@ export class ToursService {
 	}
 
 	async uploadTour(body: ITourClient){
-		const tour = new TourDto(body.name, body.description, body.tourOperator, body.price, body.img);
+		const tour = new TourDto(body.name, body.description, body.tourOperator, body.price, body.location, body.img);
 		const tourData = new this.tourModel(tour);
 		await tourData.save()
 	}
