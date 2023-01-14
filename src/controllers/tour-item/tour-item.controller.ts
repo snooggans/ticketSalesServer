@@ -30,14 +30,4 @@ export class TourItemController {
 		body.img = TourItemController.imgName;
 		this.toursService.uploadTour(body);
 	}
-
-	@Get(':name')
-	getTourById(@Param('name') name): Promise<ITour[]>{
-		return this.toursService.getTourByName(name);
-	}
-
-	@Get()
-	getNearestTours(): Promise<ITour[]>{
-		return this.toursService.getNearestTours();
-	}
 }
