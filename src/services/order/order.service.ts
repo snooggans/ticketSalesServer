@@ -16,8 +16,15 @@ export class OrderService {
 		return orderData.save()
 	}
 
-	async getAllOrders(uid): Promise<IOrder[]>{
+	async getAllUserOrders(uid): Promise<IOrder[]>{
 		return this.orderModel.find({userId: uid})
 	}
 
+	async getAllOrders(): Promise<IOrder[]>{
+		return this.orderModel.find()
+	}
+
+	async deleteOrderById(oid): Promise<any>{
+		return this.orderModel.deleteOne({_id: oid})
+	}
 }

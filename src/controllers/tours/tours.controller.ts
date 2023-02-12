@@ -17,7 +17,7 @@ export class ToursController {
 		return this.toursService.getAllTours()
 	}
 
-	@UseGuards(AuthGuardService)
+	// @UseGuards(AuthGuardService)
 	@Get()
 	getAllTours(): Promise<ITour[]>{
 		return this.toursService.getAllTours();
